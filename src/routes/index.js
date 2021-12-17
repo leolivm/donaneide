@@ -10,6 +10,10 @@ routes.use('/', async (req, res) => {
     `https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/v001/?key=${config.STEAM_KEY}&match_id=6320609816`
   )
 
+  const { data } = await axios.get(
+    `http://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/v1?key=${config.STEAM_KEY}&account_id=158991411&matches_requested=1`
+  )
+
   return res.json({ data })
 })
 
