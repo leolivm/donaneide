@@ -1,11 +1,22 @@
 import 'dotenv/config'
-import express from 'express'
+import { Client, Intents } from 'discord.js'
 
-import routes from './routes'
-import './bot'
+import SendGossipController from './controllers/SendGossipController'
+import GetMatchesController from './controllers/GetMatchesController'
+import config from './config'
 
-const app = express()
-app.use(express.json())
-app.use(routes)
+const client = new Client({
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+})
 
-app.listen(3333, () => console.log('Server is up on port 3333.'))
+client.on('ready', async () => {
+  SendGossipController()
+
+  const data = await GetMatchesController()
+
+  console.log(data)
+})
+
+client.login(config.TOKEN)
+
+export { client }
