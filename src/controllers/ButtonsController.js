@@ -17,10 +17,21 @@ const ButtonsController = (msg) => {
     new MessageButton()
       .setCustomId('mattos')
       .setLabel('Mattos')
+      .setStyle('PRIMARY'),
+    new MessageButton()
+      .setCustomId('thiago')
+      .setLabel('Thiago')
       .setStyle('PRIMARY')
   )
 
-  msg.channel.send({ content: 'Escolha um jogador', components: [row] })
+  const second_row = new MessageActionRow().addComponents(
+    new MessageButton().setCustomId('ale').setLabel('Ale').setStyle('PRIMARY')
+  )
+
+  msg.channel.send({
+    content: 'Escolha um jogador',
+    components: [row, second_row],
+  })
 
   client.on('interactionCreate', async (interaction) => {
     if (interaction.isButton) {
