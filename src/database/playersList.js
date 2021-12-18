@@ -43,10 +43,10 @@ export default [
   //   account_id: '115046394',
   //   steam_id: 'tatinha25',
   // },
-  // {
-  //   account_id: '133770475',
-  //   steam_id: '76561198094036203',
-  // },
+  {
+    account_id: '133770475',
+    steam_id: '76561198094036203',
+  },
   // {
   //   account_id: '210881971',
   //   steam_id: '76561198171147699',

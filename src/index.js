@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import { Client, Intents } from 'discord.js'
+import { Client, Intents, MessageEmbed } from 'discord.js'
 
 import SendGossipController from './controllers/SendGossipController'
 import GetMatchesController from './controllers/GetMatchesController'
@@ -12,9 +12,55 @@ const client = new Client({
 client.on('ready', async () => {
   SendGossipController()
 
-  const data = await GetMatchesController()
+  const matches = await GetMatchesController()
 
-  console.log(data)
+  client.channels.fetch(config.CHANNEL).then((channel) => {
+    matches.map((item) => {
+      const embed = new MessageEmbed()
+        .setColor(`${item.win ? '#00B13E' : '#DD0000'}`)
+        .setTitle(`${item.name}`)
+        .setAuthor(
+          `${item.win ? 'Zé fofoquinha news 👀' : 'Zé fofoquinha news 👁👁'}`
+        )
+        .setDescription(
+          `${item.win ? 'ganhou ✅' : 'PERDEUUUU que peninha 🤣 ❌'}`
+        )
+        .setThumbnail(
+          'https://gartic.com.br/imgs/mural/su/supersiniistro/dota2.png'
+        )
+        .addFields(
+          {
+            name:
+              item.deaths > 10
+                ? item.deaths > 15
+                  ? `${item.kills}/leo`
+                  : 'kkkkkkkkkk'
+                : 'ebaa',
+            value:
+              item.deaths > 10
+                ? item.deaths > 15
+                  ? 'LEOZOU'
+                  : 'rsrsrs'
+                : '👍🏻',
+          },
+          {
+            name: `${item.kills}/${item.deaths}/${item.assists}`,
+            value: 'de frag',
+          },
+          {
+            name: `${item.hero}`,
+            value: 'herói',
+            inline: true,
+          }
+        )
+        .setFooter(
+          `${item.date}`,
+          'https://gartic.com.br/imgs/mural/su/supersiniistro/dota2.png'
+        )
+
+      channel.send({ embeds: [embed] })
+    })
+  })
 })
 
 client.login(config.TOKEN)
