@@ -34,7 +34,7 @@ const GetMatchesController = async () => {
 
   const accountResponse = namedPlayersList.map(async (item) => {
     const { data } = await axios.get(
-      `http://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/v1?key=${config.STEAM_KEY}&account_id=${item.account_id}&matches_requested=1`
+      `http://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/v1?key=${config.STEAM_KEY}&account_id=${item.account_id}&matches_requested=2`
     )
 
     if (data.result.statusDetail) return
@@ -93,7 +93,7 @@ const GetMatchesController = async () => {
 
             return {
               name: item.name,
-              win: item.radiant_win ? (pick.team === 0 ? true : false) : false,
+              win: item.radiant_win ? (pick.team === 0 ? true : false) : true,
               kills: player.kills,
               deaths: player.deaths,
               assists: player.assists,
