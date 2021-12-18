@@ -16,14 +16,16 @@ const SendEmbedMessage = (matches, channel) => {
       )
       .addFields(
         {
-          name:
-            item.deaths > 10
-              ? item.deaths > 15
-                ? `${item.kills}/leo`
-                : 'kkkkkkkkkk'
-              : 'ebaa',
-          value:
-            item.deaths > 10 ? (item.deaths > 15 ? 'LEOZOU' : 'rsrsrs') : '👍🏻',
+          name: !item.win
+            ? item.deaths > 15
+              ? `${item.kills}/leo`
+              : 'kkkkkkkkkk'
+            : 'ebaa',
+          value: !item.win
+            ? item.deaths >= 15
+              ? '***LEOZOU......***'
+              : 'rsrsrs'
+            : '👍🏻',
         },
         {
           name: `${item.kills}/${item.deaths}/${item.assists}`,
